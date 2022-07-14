@@ -47,6 +47,9 @@ export const actions = {
 			const user_headers = response.headers
 			commit('setUser', {user: user_data, icon: null})
 			commit('setToken', {uid: user_data['uid'], access_token: user_headers['access-token'], client: user_headers['client']})
+			this.$router.push('/')
+		}).catch((err) => {
+			console.log(err)
 		})
 	},
 }
