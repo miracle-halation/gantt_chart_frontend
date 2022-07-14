@@ -34,7 +34,7 @@
 				class="mr-4"
 				type="submit"
 				:disabled="invalid"
-				@click="handleLogin"
+				:click="submit"
 			>
 				submit
 			</v-btn>
@@ -43,7 +43,7 @@
 </template>
 
 <script>
-import {mapGetters, mapActions} from 'vuex'
+import axios from 'axios'
 
 export default {
 	name:'login',
@@ -54,16 +54,12 @@ export default {
 		}
 	},
 	methods:{
-		async submit(){
-			this.$refs.observer.validate()
-		},
-		async handleLogin(){
-			const formData = new FormData();
-			formData.append('email', this.email)
-			formData.append('password', this.password)
-			await this.login({data: formData})
-		},
-		...mapActions('user', ['login'])
+		submit(){
+			axios.get('http://localhost:8000/')
+				.then((response) => (
+					console.log(response)
+				))
+		}
 	}
 }
 </script>
