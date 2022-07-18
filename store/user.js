@@ -52,4 +52,18 @@ export const actions = {
 			console.log(err)
 		})
 	},
+	async logout({commit, getters}){
+		const headers = {
+			uid: getters.uid,
+			access_token: getters.access_token,
+			client: getters.client,
+		}
+		await this.$axios.delete('/v1/auth/sign_out', {headers: headers})
+		.then((response) => {
+			commit('LogoutUser')
+			commit('removeToken')
+		}).catch((err) => {
+			console.log(err)
+		})
+	}
 }

@@ -27,6 +27,10 @@
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
+      <v-spacer />
+      <template v-if="this.isLoggedIn">
+        <v-btn color="green" @click="handleLogout">ログアウト</v-btn>
+      </template>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -40,6 +44,8 @@
 </template>
 
 <script>
+import {mapGetters, mapActions} from 'vuex'
+
 export default {
   name: 'DefaultLayout',
   data() {
@@ -65,5 +71,14 @@ export default {
       title: 'WSガントチャート',
     }
   },
+  computed:{
+    ...mapGetters('user', ['isLoggedIn'])
+  },
+  methods:{
+    handleLogout(){
+      this.logout()
+    },
+    ...mapActions('user', ['logout'])
+  }
 }
 </script>
