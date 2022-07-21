@@ -23,6 +23,9 @@ export const mutations = {
 		state.isLoggedIn = !state.isLoggedIn
 		state.user = null
 		state.icon = null
+	},
+	LoginStatus (state) {
+		state.isLoggedIn = !state.isLoggedIn
 	}
 }
 

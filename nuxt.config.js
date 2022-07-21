@@ -71,4 +71,7 @@ export default {
       "vee-validate"
     ]
   },
+  router: {
+    middleware: "auth"
+  },
 }
