@@ -20,8 +20,8 @@ export const getters = {
 
 export const mutations = {
 	setUser (state, {user, icon}) {
-		state.isLoggedIn = !state.isLoggedIn
 		state.user = user
+		state.isLoggedIn = !state.isLoggedIn
 		state.icon = icon
 	},
 	LogoutUser (state) {
@@ -67,5 +67,20 @@ export const actions = {
 		}).catch((err) => {
 			console.log(err)
 		})
-	}
+	},
+	async certLogin({commit, dispatch}){
+		const headers = {
+			uid: cookies.get('id-u'),
+			access_token: cookies.get('tk-pass'),
+			client: cookies.get('cli-us')
+		}
+		await this.$axios.get('/v1/auth/validate_token', {headers: headers})
+		.then((response) => {
+			console.log(response)
+			const user_data = response.data.data
+			commit('setUser', {user: user_data, icon: null})
+		}).catch((err) => {
+			console.log(err)
+		})
+	},
 }
