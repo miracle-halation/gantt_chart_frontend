@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 
-export default ({req, store, axios}) => {
+export default ({req, store, redirect}) => {
 	if(process.browser){
 		return
 	}
@@ -8,5 +8,7 @@ export default ({req, store, axios}) => {
 	const islogin = cookies.get('isLogin')
 	if(islogin){
 		store.commit('user/LoginStatus')
+	}else{
+		return redirect('/login')
 	}
 }
