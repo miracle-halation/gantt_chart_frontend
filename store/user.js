@@ -1,6 +1,11 @@
 import Cookies from "universal-cookie"
 const cookies = new Cookies()
 
+const OPTIONS = {
+	path: '/',
+	maxAge: 60 * 60 * 24 * 7
+}
+
 export const state = () => ({
 	isLoggedIn: false,
 	user: null,
@@ -36,10 +41,10 @@ export const actions = {
 			const user_data = response.data.data
 			const user_headers = response.headers
 			commit('setUser', {user: user_data, icon: null})
-			cookies.set('isLogin', true)
-			cookies.set('id-u', user_data['uid'])
-			cookies.set('tk-pass', user_headers['access-token'])
-			cookies.set('cli-us', user_headers['client'])
+			cookies.set('isLogin', true, OPTIONS)
+			cookies.set('id-u', user_data['uid'], OPTIONS)
+			cookies.set('tk-pass', user_headers['access-token'], OPTIONS)
+			cookies.set('cli-us', user_headers['client'], OPTIONS)
 			this.$router.push('/')
 		}).catch((err) => {
 			console.log(err)
@@ -54,11 +59,13 @@ export const actions = {
 		await this.$axios.delete('/v1/auth/sign_out', {headers: headers})
 		.then((response) => {
 			commit('LogoutUser')
+			cookies.remove('isLogin')
 			cookies.remove('id-u')
 			cookies.remove('tk-pass')
 			cookies.remove('cli-us')
+			this.$router.push('/login')
 		}).catch((err) => {
 			console.log(err)
 		})
-	},
+	}
 }
