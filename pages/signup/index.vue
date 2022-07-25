@@ -6,6 +6,19 @@
 		<form @submit.prevent="submit">
 			<ValidationProvider
 				v-slot="{ errors }"
+				name="name"
+				rules="required"
+			>
+				<v-text-field
+					v-model="name"
+					:error-messages="errors"
+					label="Name"
+					required
+				></v-text-field>
+			</ValidationProvider>
+
+			<ValidationProvider
+				v-slot="{ errors }"
 				name="email"
 				rules="required|email"
 			>
@@ -20,7 +33,7 @@
 			<ValidationProvider
 				v-slot="{ errors }"
 				name="Password"
-				rules="required|max:20"
+				rules="required|max:20|confirmed:PasswordConfirm"
 			>
 				<v-text-field
 					v-model="password"
@@ -30,11 +43,26 @@
 					required
 				></v-text-field>
 			</ValidationProvider>
+
+			<ValidationProvider
+				v-slot="{ errors }"
+				name="PasswordConfirm"
+				rules="required|max:20"
+			>
+				<v-text-field
+					v-model="password_confirm"
+					:counter="20"
+					:error-messages="errors"
+					label="PasswordConfirm"
+					required
+				></v-text-field>
+			</ValidationProvider>
+
 			<v-btn
 				class="mr-4"
 				type="submit"
 				:disabled="invalid"
-				:click="submit"
+				@click="handleSingup"
 			>
 				submit
 			</v-btn>
@@ -43,23 +71,30 @@
 </template>
 
 <script>
-import axios from 'axios'
+import {mapActions} from 'vuex'
 
 export default {
-	name:'login',
+	name:'signup',
 	data() {
 		return {
+			name: '',
 			email: '',
-			password: ''
+			password: '',
+			password_confirm: '',
 		}
 	},
 	methods:{
-		submit(){
-			axios.get('http://localhost:8000/')
-				.then((response) => (
-					console.log(response)
-				))
-		}
+		async submit(){
+			this.$refs.observer.validate()
+		},
+		async handleSingup(){
+			const formData = new FormData();
+			formData.append('name', this.name)
+			formData.append('email', this.email)
+			formData.append('password', this.password)
+			await this.signup({data: formData})
+		},
+		...mapActions('user', ['signup'])
 	}
 }
 </script>

@@ -64,6 +64,11 @@ export default {
           title: 'Login',
           to: '/login',
         },
+        {
+          icon: 'mdi-chart-bubble',
+          title: 'SignUp',
+          to: '/signup',
+        },
       ],
       miniVariant: false,
       right: true,

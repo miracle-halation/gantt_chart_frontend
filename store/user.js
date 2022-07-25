@@ -6,6 +6,10 @@ const OPTIONS = {
 	maxAge: 60 * 60 * 24 * 7
 }
 
+const config = {
+	'Content-Type': 'application/json'
+}
+
 export const state = () => ({
 	isLoggedIn: false,
 	user: null,
@@ -35,6 +39,21 @@ export const mutations = {
 }
 
 export const actions = {
+	async signup({commit, dispatch}, {data}){
+		await this.$axios.post('/v1/auth', data, config)
+		.then((response) => {
+			const user_data = response.data.data
+			const user_headers = response.headers
+			commit('setUser', {user: user_data, icon: null})
+			cookies.set('isLogin', true, OPTIONS)
+			cookies.set('id-u', user_data['uid'], OPTIONS)
+			cookies.set('tk-pass', user_headers['access-token'], OPTIONS)
+			cookies.set('cli-us', user_headers['client'], OPTIONS)
+			this.$router.push('/')
+		}).catch((err) => {
+			console.log(err)
+		})
+	},
 	async login({commit, dispatch}, {data}){
 		await this.$axios.post('/v1/auth/sign_in', data)
 		.then((response) => {
