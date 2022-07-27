@@ -12,7 +12,7 @@
 				<v-text-field
 					v-model="email"
 					:error-messages="errors"
-					label="E-mail"
+					label="メールアドレス"
 					required
 				></v-text-field>
 			</ValidationProvider>
@@ -26,7 +26,7 @@
 					v-model="password"
 					:counter="20"
 					:error-messages="errors"
-					label="Password"
+					label="パスワード"
 					required
 				></v-text-field>
 			</ValidationProvider>
