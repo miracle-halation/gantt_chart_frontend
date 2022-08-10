@@ -25,7 +25,6 @@ export const getters = {
 export const mutations = {
 	setUser (state, {user, icon}) {
 		state.user = user
-		state.isLoggedIn = !state.isLoggedIn
 		state.icon = icon
 	},
 	LogoutUser (state) {
@@ -45,6 +44,7 @@ export const actions = {
 			const user_data = response.data.data
 			const user_headers = response.headers
 			commit('setUser', {user: user_data, icon: null})
+			commit('LoginStatus')
 			cookies.set('isLogin', true, OPTIONS)
 			cookies.set('id-u', user_data['uid'], OPTIONS)
 			cookies.set('tk-pass', user_headers['access-token'], OPTIONS)
@@ -60,6 +60,7 @@ export const actions = {
 			const user_data = response.data.data
 			const user_headers = response.headers
 			commit('setUser', {user: user_data, icon: null})
+			commit('LoginStatus')
 			cookies.set('isLogin', true, OPTIONS)
 			cookies.set('id-u', user_data['uid'], OPTIONS)
 			cookies.set('tk-pass', user_headers['access-token'], OPTIONS)
