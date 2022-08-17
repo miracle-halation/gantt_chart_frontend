@@ -1,7 +1,7 @@
 import Cookies from "universal-cookie";
 
 export default ({req, store, redirect}) => {
-	if(process.browser){
+	if(process.client){
 		return
 	}
 	const cookies = new Cookies(req.headers.cookie)

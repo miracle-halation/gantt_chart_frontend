@@ -84,6 +84,5 @@
 import Authenticateuser from '@/middleware/authenticateUser.js'
 export default {
   name: 'IndexPage',
-  middleware: ['auth', Authenticateuser]
 }
 </script>

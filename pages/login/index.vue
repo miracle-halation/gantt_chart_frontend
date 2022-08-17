@@ -58,14 +58,13 @@ export default {
 			this.$refs.observer.validate()
 		},
 		async handleLogin(){
-			const formData = new FormData();
-			formData.append('email', this.email)
-			formData.append('password', this.password)
-			await this.login({data: formData})
+			await this.$auth.loginWith('local', {data: {email: this.email, password: this.password}})
+			this.$router.push('/')
 		},
 		...mapActions('user', ['login'])
 	}
 }
+
 </script>
 
 <style scoped>

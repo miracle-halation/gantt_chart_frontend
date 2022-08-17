@@ -20,9 +20,6 @@ export default {
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
-
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
@@ -33,11 +30,13 @@ export default {
   ],
   plugins: [
     '@/plugins/vee-validate',
+    '@/plugins/axios'
   ],
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
+    '@nuxtjs/auth'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -72,6 +71,24 @@ export default {
     ]
   },
   router: {
-    middleware: "auth"
+
+  },
+
+  auth: {
+    redirect: {
+      login: '/login',   // 未ログイン時に認証ルートへアクセスした際のリダイレクトURL
+      logout: '/login',  // ログアウト時のリダイレクトURL
+      callback: false,   // Oauth認証等で必要となる コールバックルート
+      home: '/',         // ログイン後のリダイレクトURL
+    },
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'v1/auth/sign_in', method: 'post', propertyName: 'access_token' },
+          user: { url: 'v1/auth/validate_token', method: 'get', propertyName: 'data' },
+          logout: { url: 'v1/auth/sign_out', method: 'delete' }
+        },
+      }
+    }
   },
 }
