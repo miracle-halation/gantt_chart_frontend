@@ -27,6 +27,11 @@
 //   })
 // }
 
+/**
+ * ※重要
+ * ・このままだと開発が進まないので、一旦ローカルストレージで管理する
+ * ・のちにcookieでもっと安全性の高い開発を行う
+ */
 export default function({ $axios }) {
   $axios.onRequest(config => {
     config.headers.client = window.localStorage.getItem("client")
