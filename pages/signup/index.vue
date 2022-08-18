@@ -39,8 +39,11 @@
 					v-model="password"
 					:counter="20"
 					:error-messages="errors"
+					:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+					:type="showPassword ? 'text' : 'password'"
 					label="パスワード"
 					required
+					@click:append="showPassword = !showPassword"
 				></v-text-field>
 			</ValidationProvider>
 
@@ -53,7 +56,23 @@
 					v-model="password_confirm"
 					:counter="20"
 					:error-messages="errors"
+					:append-icon="showPasswordConfirm ? 'mdi-eye' : 'mdi-eye-off'"
+					:type="showPasswordConfirm ? 'text' : 'password'"
 					label="パスワード確認"
+					required
+					@click:append="showPasswordConfirm = !showPasswordConfirm"
+				></v-text-field>
+			</ValidationProvider>
+
+			<ValidationProvider
+				v-slot="{ errors }"
+				name="Phone"
+				:rules="{required: true, regex: /^\d{2,3}-\d{1,4}-\d{4}$/}"
+			>
+				<v-text-field
+					v-model="phone"
+					:error-messages="errors"
+					label="電話番号"
 					required
 				></v-text-field>
 			</ValidationProvider>
@@ -64,7 +83,7 @@
 				rules="required"
 			>
 				<v-select
-					v-model="group_id"
+					v-model="group"
 					:items="groups"
 					:error-messages="errors"
 					label="所属部署"
@@ -78,7 +97,7 @@
 				class="mr-4"
 				type="submit"
 				:disabled="invalid"
-				@click="handleSingup"
+				@click="handleSignup"
 			>
 				submit
 			</v-btn>
@@ -97,35 +116,43 @@ export default {
 			email: '',
 			password: '',
 			password_confirm: '',
-			group_id: '',
-			groups: [],
+			phone: '',
+			group: '',
+			groups: ['営業部', '制作部', 'システム部', '企画部', '総務部', '管理部'],
+			showPassword: false,
+      showPasswordConfirm: false,
 		}
 	},
-	mounted(){
-		this.getGroups()
-	},
 	methods:{
-		async getGroups(){
-			this.$axios.get('v1/groups')
-			.then(res => {
-                this.groups = res.data
-            })
-            .catch(err => {
-                console.log(err.statusText)
-            });
-		},
 		async submit(){
 			this.$refs.observer.validate()
 		},
-		async handleSingup(){
-			const formData = new FormData();
-			formData.append('name', this.name)
-			formData.append('email', this.email)
-			formData.append('password', this.password)
-			formData.append('group_id', this.group_id)
-			await this.signup({data: formData})
+		async handleSignup(){
+			const AuthData = new FormData();
+			AuthData.append('email', this.email)
+			AuthData.append('password', this.password)
+			await this.$axios.post('/v1/auth', AuthData)
+			.then((response) => {
+				const user_data = response.data.data
+			}).catch((err) => {
+				console.log(err)
+			})
+			await this.$auth.loginWith('local', {data: {email: this.email, password: this.password}})
+			.then((response) => {
+				const headers = {
+					uid: response.headers['uid'],
+					access_token: response.headers['access-token'],
+					client: response.headers['client']
+				}
+				const ProfileData = {
+					name: this.name,
+					phone: this.phone,
+					group: this.group
+				};
+				this.createProfile({data: ProfileData, headers: headers})
+			})
 		},
-		...mapActions('user', ['signup'])
+		...mapActions('user', ['createProfile'])
 	}
 }
 </script>

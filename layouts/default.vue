@@ -28,9 +28,9 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <template v-if="this.isLoggedIn">
+      <!-- <template v-if="user"> -->
         <v-btn color="green" @click="handleLogout">ログアウト</v-btn>
-      </template>
+      <!-- </template> -->
     </v-app-bar>
     <v-main>
       <v-container>
@@ -73,17 +73,18 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'WSガントチャート',
+      title: 'ガントチャート',
     }
   },
   computed:{
-    ...mapGetters('user', ['isLoggedIn'])
+      // user() {
+      //   return this.$auth.user;
+      // },
   },
   methods:{
     handleLogout(){
-      this.logout()
+      this.$auth.logout();
     },
-    ...mapActions('user', ['logout'])
   }
 }
 </script>
