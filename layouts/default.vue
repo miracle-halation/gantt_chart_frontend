@@ -28,9 +28,7 @@
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title v-text="title" />
       <v-spacer />
-      <!-- <template v-if="user"> -->
-        <v-btn color="green" @click="handleLogout">ログアウト</v-btn>
-      <!-- </template> -->
+      <v-btn color="green" @click="handleLogout">ログアウト</v-btn>
     </v-app-bar>
     <v-main>
       <v-container>
@@ -73,13 +71,8 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'ガントチャート',
+      title: 'ガントチャート'
     }
-  },
-  computed:{
-      // user() {
-      //   return this.$auth.user;
-      // },
   },
   methods:{
     handleLogout(){
