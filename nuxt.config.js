@@ -85,7 +85,7 @@ export default {
       local: {
         endpoints: {
           login: { url: 'v1/auth/sign_in', method: 'post', propertyName: 'access_token' },
-          user: { url: 'v1/auth/validate_token', method: 'get', propertyName: 'data' },
+          user: false,
           logout: { url: 'v1/auth/sign_out', method: 'delete' }
         },
       }

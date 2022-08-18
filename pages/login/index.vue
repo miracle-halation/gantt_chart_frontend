@@ -59,7 +59,7 @@ export default {
 		},
 		async handleLogin(){
 			await this.$auth.loginWith('local', {data: {email: this.email, password: this.password}})
-			this.$router.push('/')
+			this.$router.go('/')
 		},
 	}
 }
