@@ -26,8 +26,11 @@
 					v-model="password"
 					:counter="20"
 					:error-messages="errors"
+					:append-icon="showPassword ? 'mdi-eye' : 'mdi-eye-off'"
+					:type="showPassword ? 'text' : 'password'"
 					label="パスワード"
 					required
+					@click:append="showPassword = !showPassword"
 				></v-text-field>
 			</ValidationProvider>
 			<v-btn
@@ -50,7 +53,8 @@ export default {
 	data() {
 		return {
 			email: '',
-			password: ''
+			password: '',
+			showPassword: false,
 		}
 	},
 	methods:{
