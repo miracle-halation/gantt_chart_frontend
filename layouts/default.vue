@@ -16,5 +16,16 @@ import {mapGetters, mapActions} from 'vuex'
 
 export default {
   name: 'DefaultLayout',
+  data() {
+    return {
+      fixed: false,
+    }
+  },
 }
 </script>
+
+<style scoped>
+  a {
+    text-decoration: none;
+  }
+</style>
