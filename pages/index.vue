@@ -1,5 +1,7 @@
 <template>
+
   <v-row justify="center" align="center">
+    <navbar></navbar>
     <v-col cols="12" sm="8" md="6">
       <v-card class="logo py-4 d-flex justify-center">
         <NuxtLogo />
@@ -82,7 +84,12 @@
 
 <script>
 import Authenticateuser from '@/middleware/authenticateUser.js'
+import Navbar from '../components/share/Navbar.vue'
+
 export default {
   name: 'IndexPage',
+  components: {
+    Navbar
+  },
 }
 </script>
