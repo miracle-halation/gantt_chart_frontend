@@ -17,7 +17,6 @@ export const actions = {
 		await this.$axios.post('/v1/profiles', data, header)
 			.then((response) => {
 				commit('setProfile', {profile: response.data})
-				this.$router.go('/')
 			}).catch((err) => {
 				console.log(err)
 			})

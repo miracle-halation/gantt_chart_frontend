@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import Authenticateuser from '@/middleware/authenticateUser.js'
 import Navbar from '../components/share/Navbar.vue'
 
 export default {
@@ -91,5 +90,6 @@ export default {
   components: {
     Navbar
   },
+  middleware: ['auth'],
 }
 </script>

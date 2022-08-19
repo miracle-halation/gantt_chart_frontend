@@ -2,13 +2,12 @@
 	<v-app-bar :clipped-left="clipped" fixed app>
 		<v-toolbar-title v-text="title" />
 		<v-spacer />
-		<template v-if="this.$auth.loggedIn">
-			<v-btn color="green" @click="handleLogout">ログアウト</v-btn>
-		</template>
+		<v-btn color="green" @click="handleLogout">ログアウト</v-btn>
 	</v-app-bar>
 </template>
 
 <script>
+
 export default {
 	data() {
     return {

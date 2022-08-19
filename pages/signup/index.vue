@@ -127,6 +127,7 @@ import {mapActions} from 'vuex'
 
 export default {
 	name:'signup',
+	middleware: ['isLoggedInUser'],
 	data() {
 		return {
 			name: '',

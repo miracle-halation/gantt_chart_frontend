@@ -67,6 +67,7 @@ import {mapActions} from 'vuex'
 
 export default {
 	name:'login',
+	middleware: ['isLoggedInUser'],
 	data() {
 		return {
 			email: '',
@@ -80,7 +81,6 @@ export default {
 		},
 		async handleLogin(){
 			await this.$auth.loginWith('local', {data: {email: this.email, password: this.password}})
-			this.$router.go('/')
 		},
 	}
 }
