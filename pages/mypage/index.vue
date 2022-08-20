@@ -2,42 +2,7 @@
   <v-app id="inspire">
 		<navbar></navbar>
 
-    <v-navigation-drawer
-      v-model="drawer"
-      app
-			clipped
-    >
-      <v-sheet
-        color="grey lighten-4"
-        class="pa-4"
-      >
-        <v-avatar
-          class="mb-4"
-          color="grey darken-1"
-          size="64"
-        ></v-avatar>
-				<div>名前</div>
-      </v-sheet>
-
-      <v-divider></v-divider>
-
-			<!-- ここにタスクやプロジェクトなどのユーザーに紐づく情報へのリンクを作成する -->
-      <v-list>
-        <v-list-item
-          v-for="[icon, text] in links"
-          :key="icon"
-          link
-        >
-          <v-list-item-icon>
-            <v-icon>{{ icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ text }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+    <nav-drower></nav-drower>
 
 		<!-- ユーザーのガントチャートを表示。タスクカードを一覧で出す -->
     <v-main>
@@ -89,20 +54,17 @@
 
 <script>
 import Navbar from '~/components/share/Navbar.vue'
+import NavDrower from '~/components/mypage/NavDrower.vue'
 
 export default {
   name: 'MyPage',
   components: {
-    Navbar
+    Navbar,
+    NavDrower
   },
   middleware: ['auth'],
   data: () => ({
-		links:[
-			['mdi-inbox-arrow-down', 'Inbox'],
-			['mdi-send', 'Send'],
-			['mdi-delete', 'Trash'],
-			['mdi-alert-octagon', 'Spam'],
-		]
+		
   }),
 }
 </script>
