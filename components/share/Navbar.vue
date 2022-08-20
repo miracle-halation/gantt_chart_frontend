@@ -1,6 +1,8 @@
 <template>
 	<v-app-bar :clipped-left="clipped" fixed app>
-		<v-toolbar-title v-text="title" />
+    <nuxt-link to='/' tag="div"><v-toolbar-title v-text="title" /></nuxt-link>
+    <v-btn text><nuxt-link to='/mypage' tag="div">マイページ</nuxt-link></v-btn>
+    <v-btn text><nuxt-link to='/projects' tag="div">プロジェクト一覧</nuxt-link></v-btn>
 		<v-spacer />
 		<v-btn color="green" @click="handleLogout">ログアウト</v-btn>
 	</v-app-bar>
