@@ -2,7 +2,7 @@
   <v-app id="inspire">
 		<navbar></navbar>
 
-    <nav-drower></nav-drower>
+    <nav-drower :profile="profile"></nav-drower>
 
 		<!-- ユーザーのガントチャートを表示。タスクカードを一覧で出す -->
     <v-main>
@@ -64,7 +64,20 @@ export default {
   },
   middleware: ['auth'],
   data: () => ({
-		
+		profile: null
   }),
+  mounted(){
+    this.fetchProfile()
+  },
+  methods:{
+    async fetchProfile(){
+      this.$axios.get('/v1/profiles')
+      .then((response) => {
+        this.profile = response.data
+      }).catch((error) => {
+        console.log(error)
+      })
+    }
+  }
 }
 </script>

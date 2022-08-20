@@ -13,25 +13,32 @@
 				color="grey darken-1"
 				size="64"
 			></v-avatar>
-			<div>名前</div>
+			<div>{{profile.name}}</div>
 		</v-sheet>
 
 		<v-divider></v-divider>
 
 		<!-- ここにタスクやプロジェクトなどのユーザーに紐づく情報へのリンクを作成する -->
 		<v-list>
-			<v-list-item
-				v-for="[icon, text, access] in links"
-				:key="icon"
-				link
-				:to=access
-			>
-				<v-list-item-icon>
-					<v-icon>{{ icon }}</v-icon>
-				</v-list-item-icon>
+			<v-list-item>
+				<v-list-item-action>
+					<v-icon>mdi-phone</v-icon>
+				</v-list-item-action>
 
 				<v-list-item-content>
-					<v-list-item-title>{{ text }}</v-list-item-title>
+					<v-list-item-title>{{profile.phone}}</v-list-item-title>
+				</v-list-item-content>
+			</v-list-item>
+
+			<v-divider inset></v-divider>
+
+			<v-list-item>
+				<v-list-item-action>
+					<v-icon>mdi-map-marker</v-icon>
+				</v-list-item-action>
+
+				<v-list-item-content>
+					<v-list-item-title>{{profile.group}}</v-list-item-title>
 				</v-list-item-content>
 			</v-list-item>
 		</v-list>
@@ -40,10 +47,11 @@
 
 <script>
 export default {
+	props:{
+		profile: Array
+	},
 	data: () => ({
-		links:[
-			['mdi-account', 'Profile', '/mypage/profile'],
-		]
+
   }),
 }
 </script>
