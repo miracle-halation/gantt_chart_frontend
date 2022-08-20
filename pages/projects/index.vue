@@ -5,6 +5,7 @@
 			<v-card>
 				<v-card-title>
 					プロジェクト一覧
+          <!-- <nuxt-link to="/projects/create" tag='div'><v-btn text>プロジェクトを作成する</v-btn></nuxt-link> -->
 					<v-spacer></v-spacer>
 					<v-text-field
 						v-model="search"
@@ -47,7 +48,7 @@ export default {
         { text: 'ドメイン', value: 'url' },
         { text: '納期', value: 'deadline' }
       ],
-      projects: null
+      projects: []
     }
   },
   mounted(){
@@ -58,7 +59,6 @@ export default {
       this.$axios.get('/v1/projects')
       .then((response) => {
         this.projects = response.data
-        console.log(this.projects)
       }).catch((error) => {
         console.log(error)
       })

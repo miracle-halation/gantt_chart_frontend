@@ -49,9 +49,6 @@
 export default {
 	props:{
 		profile: Array
-	},
-	data: () => ({
-
-  }),
+	}
 }
 </script>
