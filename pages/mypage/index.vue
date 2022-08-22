@@ -11,7 +11,7 @@
 
 <script>
 import Navbar from '~/components/share/Navbar.vue'
-import UserProfile from '@/components/mypage/UserProfile.vue'
+import UserProfile from '~/components/user/UserProfile.vue'
 
 export default {
   name: 'MyPage',
@@ -22,7 +22,7 @@ export default {
   middleware: ['auth'],
   data(){
 		return{
-		  profile: null
+		  profile: []
     }
   },
   mounted(){
@@ -33,6 +33,7 @@ export default {
       this.$axios.get('/v1/profiles')
       .then((response) => {
         this.profile = response.data
+        console.log(this.profile)
       }).catch((error) => {
         console.log(error)
       })

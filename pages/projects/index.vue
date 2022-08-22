@@ -5,7 +5,7 @@
 			<v-card>
 				<v-card-title>
 					プロジェクト一覧
-          <!-- <nuxt-link to="/projects/create" tag='div'><v-btn text>プロジェクトを作成する</v-btn></nuxt-link> -->
+          <nuxt-link to="/projects/create" tag='div'><v-btn text>プロジェクトを作成する</v-btn></nuxt-link>
 					<v-spacer></v-spacer>
 					<v-text-field
 						v-model="search"
