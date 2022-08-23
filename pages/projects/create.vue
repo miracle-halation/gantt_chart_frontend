@@ -63,12 +63,13 @@
                 name="year"
                 rules="required|max:4"
               >
-              <v-text-field
+              <v-select
                 v-model="year"
+                :items="years"
+                :error-messages="errors"
                 label="year"
-                :counter="4"
                 required
-              ></v-text-field>
+              ></v-select>
               </ValidationProvider>
             </v-col>
 
@@ -79,14 +80,15 @@
               <ValidationProvider
                 v-slot="{ errors }"
                 name="month"
-                rules="required|max:2"
+                rules="required|max:4"
               >
-                <v-text-field
-                  v-model="month"
-                  label="month"
-                  :counter="2"
-                  required
-                ></v-text-field>
+              <v-select
+                v-model="month"
+                :items="months"
+                :error-messages="errors"
+                label="month"
+                required
+              ></v-select>
               </ValidationProvider>
             </v-col>
 
@@ -97,14 +99,15 @@
               <ValidationProvider
                 v-slot="{ errors }"
                 name="day"
-                rules="required|max:2"
+                rules="required|max:4"
               >
-                <v-text-field
-                  v-model="day"
-                  label="day"
-                  :counter="2"
-                  required
-                ></v-text-field>
+              <v-select
+                v-model="day"
+                :items="days"
+                :error-messages="errors"
+                label="day"
+                required
+              ></v-select>
               </ValidationProvider>
             </v-col>
           </v-row>
@@ -147,6 +150,32 @@ export default {
   },
   mounted(){
     this.fetchProfile()
+  },
+  computed:{
+    years() {
+      const years = []
+      for (let year = new Date().getFullYear(); year <= new Date().getFullYear() + 10; year++) {
+        years.push(year)
+      }
+      return years
+    },
+    months() {
+      const months = [...Array(12)].map((ele, i) => i + 1)
+      return months
+    },
+    days() {
+      let days = []
+      if ((this.month === 2 && this.year % 4 === 0 && this.year % 100 !== 0) || (this.month === 2 && this.year % 400 === 0)) {
+        days = [...Array(29)].map((ele, i) => i + 1)
+      } else if (this.month === 2) {
+        days = [...Array(28)].map((ele, i) => i + 1)
+      } else if (this.month === 4 || this.month === 6 || this.month === 9 || this.month === 11) {
+        days = [...Array(30)].map((ele, i) => i + 1)
+      } else {
+        days = [...Array(31)].map((ele, i) => i + 1)
+      }
+      return days
+    },
   },
   methods:{
     async submit(){
