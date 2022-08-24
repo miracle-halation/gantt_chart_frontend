@@ -32,7 +32,7 @@ export default {
     fetchProfile(){
       this.$axios.get('/v1/profiles')
       .then((response) => {
-        this.profile = response.data
+        this.profile = response.data.data
         console.log(this.profile)
       }).catch((error) => {
         console.log(error)

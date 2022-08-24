@@ -191,7 +191,7 @@ export default {
       }
       this.$axios.post('/v1/projects', create_project)
       .then((response) => {
-        const project = response.data
+        const project = response.data.data
         this.$router.push("/projects/"+project.id)
       }).catch((error) => {
         console.log(error)
@@ -200,7 +200,7 @@ export default {
     fetchProfile(){
       this.$axios.get('/v1/profiles')
       .then((response) => {
-        this.profile = response.data
+        this.profile = response.data.data
       }).catch((error) => {
         console.log(error)
       })

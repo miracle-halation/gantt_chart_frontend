@@ -28,7 +28,7 @@ export default {
 			const project_id = this.$route.params['id']
       this.$axios.get('/v1/projects/'+project_id)
       .then((response) => {
-        this.project = response.data
+        this.project = response.data.data
 				console.log(this.project)
       }).catch((error) => {
         console.log(error)
