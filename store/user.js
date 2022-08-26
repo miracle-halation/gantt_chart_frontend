@@ -21,4 +21,13 @@ export const actions = {
 				console.log(err)
 			})
 	},
+	async updateProfile({commit}, {data}){
+		await this.$axios.put('/v1/profiles', data)
+			.then((response) => {
+				commit('setProfile', {profile: response.data})
+				this.$router.go('/mypage')
+			}).catch((err) => {
+				console.log(err)
+			})
+	}
 }
