@@ -21,6 +21,20 @@
 		<v-list>
 			<v-list-item>
 				<v-list-item-action>
+					<v-icon>mdi-pencil</v-icon>
+				</v-list-item-action>
+
+				<v-list-item-content>
+					<v-list-item-title>
+						<ProfileEditModal :profile="profile"></ProfileEditModal>
+					</v-list-item-title>
+				</v-list-item-content>
+			</v-list-item>
+
+			<v-divider inset></v-divider>
+
+			<v-list-item>
+				<v-list-item-action>
 					<v-icon>mdi-phone</v-icon>
 				</v-list-item-action>
 
@@ -45,7 +59,12 @@
 </template>
 
 <script>
+import ProfileEditModal from '~/components/user/ProfileEditModal.vue'
+
 export default {
+	components: {
+    ProfileEditModal
+  },
 	props:{
 		profile: Array
 	}
