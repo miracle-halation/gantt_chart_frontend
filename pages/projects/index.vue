@@ -19,7 +19,35 @@
 					:headers="headers"
 					:items="projects"
 					:search="search"
-				></v-data-table>
+				>
+          <template #item.action="{ item }">
+            <div class="text-center">
+              <v-menu offset-x>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Dropdown
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item>
+                    <nuxt-link :to="`/projects/${item.id}`"><v-list-item-action>詳細</v-list-item-action></nuxt-link>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-action>編集</v-list-item-action>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-action>削除</v-list-item-action>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </template>
+        </v-data-table>
 			</v-card>
 		</v-container>
   </v-row>
@@ -46,7 +74,8 @@ export default {
         },
         { text: '開発ジャンル', value: 'category' },
         { text: 'ドメイン', value: 'url' },
-        { text: '納期', value: 'deadline' }
+        { text: '納期', value: 'deadline' },
+        { text: '操作', value: 'action'}
       ],
       projects: []
     }
