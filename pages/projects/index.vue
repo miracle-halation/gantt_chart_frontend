@@ -41,34 +41,7 @@
                     <EditForm :project="item"></EditForm>
                   </v-list-item>
                   <v-list-item>
-                    <v-dialog
-                      transition="dialog-bottom-transition"
-                      max-width="600"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-list-item-action
-                          v-bind="attrs"
-                          v-on="on"
-                        >削除</v-list-item-action>
-                      </template>
-                      <template v-slot:default="dialog">
-                        <v-card>
-                          <v-toolbar
-                            color="primary"
-                            dark
-                          >Opening from the bottom</v-toolbar>
-                          <v-card-text>
-                            <div class="text-h2 pa-12">Hello world!</div>
-                          </v-card-text>
-                          <v-card-actions class="justify-end">
-                            <v-btn
-                              text
-                              @click="dialog.value = false"
-                            >Close</v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </template>
-                    </v-dialog>
+                    <DeleteModal :project="item"></DeleteModal>
                   </v-list-item>
                 </v-list>
               </v-menu>
@@ -83,12 +56,14 @@
 <script>
 import Navbar from '~/components/share/Navbar.vue'
 import EditForm from '~/components/projects/editForm.vue'
+import DeleteModal from '~/components/projects/deleteModal.vue'
 
 export default {
   name: 'Projects',
   components: {
     Navbar,
-    EditForm
+    EditForm,
+    DeleteModal
   },
   middleware: ['auth'],
   data () {

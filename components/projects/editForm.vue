@@ -213,7 +213,6 @@ export default {
 				url: this.url,
 				deadline: this.year + '-' + this.month + '-' + this.day,
 			};
-			console.log(id)
 			this.$axios.put('/v1/projects/'+id, ProjectData)
       .then((response) => {
         const project = response.data.data
