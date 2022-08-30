@@ -38,34 +38,7 @@
                     <nuxt-link :to="`/projects/${item.id}`"><v-list-item-action>詳細</v-list-item-action></nuxt-link>
                   </v-list-item>
                   <v-list-item>
-                    <v-dialog
-                      transition="dialog-bottom-transition"
-                      max-width="600"
-                    >
-                      <template v-slot:activator="{ on, attrs }">
-                        <v-list-item-action
-                          v-bind="attrs"
-                          v-on="on"
-                        >編集</v-list-item-action>
-                      </template>
-                      <template v-slot:default="dialog">
-                        <v-card>
-                          <v-toolbar
-                            color="primary"
-                            dark
-                          >Opening from the bottom</v-toolbar>
-                          <v-card-text>
-                            <div class="text-h2 pa-12">Hello world!</div>
-                          </v-card-text>
-                          <v-card-actions class="justify-end">
-                            <v-btn
-                              text
-                              @click="dialog.value = false"
-                            >Close</v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </template>
-                    </v-dialog>
+                    <EditForm :project="item"></EditForm>
                   </v-list-item>
                   <v-list-item>
                     <v-dialog
@@ -109,11 +82,13 @@
 
 <script>
 import Navbar from '~/components/share/Navbar.vue'
+import EditForm from '~/components/projects/editForm.vue'
 
 export default {
   name: 'Projects',
   components: {
-    Navbar
+    Navbar,
+    EditForm
   },
   middleware: ['auth'],
   data () {
