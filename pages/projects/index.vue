@@ -5,7 +5,7 @@
 			<v-card>
 				<v-card-title>
 					プロジェクト一覧
-          <nuxt-link to="/projects/create" tag='div'><v-btn text>プロジェクトを作成する</v-btn></nuxt-link>
+          <nuxt-link to="/projects/create" tag='div'><v-btn class="success" text>プロジェクトを作成する</v-btn></nuxt-link>
 					<v-spacer></v-spacer>
 					<v-text-field
 						v-model="search"
@@ -19,7 +19,35 @@
 					:headers="headers"
 					:items="projects"
 					:search="search"
-				></v-data-table>
+				>
+          <template #item.action="{ item }">
+            <div class="text-center">
+              <v-menu offset-x>
+                <template v-slot:activator="{ on, attrs }">
+                  <v-btn
+                    color="primary"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    Dropdown
+                  </v-btn>
+                </template>
+                <v-list>
+                  <v-list-item>
+                    <nuxt-link :to="`/projects/${item.id}`"><v-list-item-action>詳細</v-list-item-action></nuxt-link>
+                  </v-list-item>
+                  <v-list-item>
+                    <EditForm :project="item"></EditForm>
+                  </v-list-item>
+                  <v-list-item>
+                    <DeleteModal :project="item"></DeleteModal>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </template>
+        </v-data-table>
 			</v-card>
 		</v-container>
   </v-row>
@@ -27,11 +55,15 @@
 
 <script>
 import Navbar from '~/components/share/Navbar.vue'
+import EditForm from '~/components/projects/editForm.vue'
+import DeleteModal from '~/components/projects/deleteModal.vue'
 
 export default {
   name: 'Projects',
   components: {
-    Navbar
+    Navbar,
+    EditForm,
+    DeleteModal
   },
   middleware: ['auth'],
   data () {
@@ -46,7 +78,8 @@ export default {
         },
         { text: '開発ジャンル', value: 'category' },
         { text: 'ドメイン', value: 'url' },
-        { text: '納期', value: 'deadline' }
+        { text: '納期', value: 'deadline' },
+        { text: '操作', value: 'action'}
       ],
       projects: []
     }
